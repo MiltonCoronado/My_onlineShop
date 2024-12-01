@@ -8,21 +8,24 @@ import NotFound from '../pages/NotFound';
 
 import NavBar from '../components/NavBar';
 import Layout from '../components/Layout';
+import { ShoppingCartProvider } from '../components/Context.jsx';
 
 const App = () => {
   return (
     <HashRouter>
-      <NavBar />
-      <Layout>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/my-account' element={<MyAccount />} />
-          <Route path='/my-order' element={<MyOrder />} />
-          <Route path='/my-orders' element={<MyOrders />} />
-          <Route path='/sign-in' element={<Signin />} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
-      </Layout>
+      <ShoppingCartProvider>
+        <NavBar />
+        <Layout>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/my-account' element={<MyAccount />} />
+            <Route path='/my-order' element={<MyOrder />} />
+            <Route path='/my-orders' element={<MyOrders />} />
+            <Route path='/sign-in' element={<Signin />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </Layout>
+      </ShoppingCartProvider>
     </HashRouter>
   )
 };
