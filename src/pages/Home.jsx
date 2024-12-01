@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Card from '../components/Card.jsx';
-
+import ProductDetail from '../components/ProductDetail.jsx';
 
 const Home = () => {
   const [products, setProducts] = useState([]); 
@@ -30,6 +30,7 @@ const Home = () => {
           />
         ))}
       </div>
+      <ProductDetail />
     </div>
   )
 };
