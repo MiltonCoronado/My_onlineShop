@@ -9,6 +9,7 @@ import NotFound from '../pages/NotFound';
 import NavBar from '../components/NavBar';
 import Layout from '../components/Layout';
 import { ShoppingCartProvider } from '../components/Context.jsx';
+import CheckoutSideMenu from '../components/CheckoutSideMenu.jsx';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <ShoppingCartProvider>
         <NavBar />
         <Layout>
+        <CheckoutSideMenu />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/my-account' element={<MyAccount />} />
