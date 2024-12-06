@@ -5,7 +5,6 @@ import MyOrder from '../pages/MyOrder';
 import MyOrders from '../pages/MyOrders';
 import Signin from '../pages/Signin';
 import NotFound from '../pages/NotFound';
-
 import NavBar from '../components/NavBar';
 import Layout from '../components/Layout';
 import { ShoppingCartProvider } from '../components/Context.jsx';
