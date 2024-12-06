@@ -7,12 +7,15 @@ const Card = ({ data }) => {
   const handleSideMenu = () => {
     context.openSideMenu();
     context.setShowProduct(data);
+    context.closeCheckoutSideMenu();
   };
 
   const addProductToCart = (event, data) => {
-    context.increment();
-    context.setCardProducts([...context.cartProducts, data])
     event.stopPropagation();
+    context.openCheckoutSideMenu()
+    context.increment();
+    context.closeSideMenu()
+    context.setCardProducts([...context.cartProducts, data])
   };
 
   console.log(context.cartProducts)
