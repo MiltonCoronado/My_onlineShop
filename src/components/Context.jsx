@@ -14,6 +14,8 @@ const ShoppingCartProvider = ({ children }) => {
 
   const [showProduct, setShowProduct] = useState(null);
 
+  const [cartProducts, setCardProducts] = useState([]);
+
   return (
     <ShoppingCartContext.Provider value={{
       incrementProduct,
@@ -23,6 +25,8 @@ const ShoppingCartProvider = ({ children }) => {
       closeSideMenu,
       showProduct,
       setShowProduct,
+      cartProducts,
+      setCardProducts,
     }}>
       {children}
     </ShoppingCartContext.Provider>
