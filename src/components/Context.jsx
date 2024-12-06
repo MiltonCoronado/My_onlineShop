@@ -16,6 +16,10 @@ const ShoppingCartProvider = ({ children }) => {
 
   const [cartProducts, setCardProducts] = useState([]);
 
+  const [checkoutSideMenu, setcheckoutSideMenu] = useState(false);
+  const openCheckoutSideMenu = () => setcheckoutSideMenu(true);
+  const closeCheckoutSideMenu = () => setcheckoutSideMenu(false);
+
   return (
     <ShoppingCartContext.Provider value={{
       incrementProduct,
@@ -27,6 +31,9 @@ const ShoppingCartProvider = ({ children }) => {
       setShowProduct,
       cartProducts,
       setCardProducts,
+      checkoutSideMenu,
+      openCheckoutSideMenu,
+      closeCheckoutSideMenu,
     }}>
       {children}
     </ShoppingCartContext.Provider>
