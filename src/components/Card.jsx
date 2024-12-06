@@ -9,6 +9,14 @@ const Card = ({ data }) => {
     context.setShowProduct(data);
   };
 
+  const addProductToCart = (event, data) => {
+    context.increment();
+    context.setCardProducts([...context.cartProducts, data])
+    event.stopPropagation();
+  };
+
+  console.log(context.cartProducts)
+
   return (
     <article 
       className='bg-white cursor-pointer w-56 h-60 rounded-lg'
@@ -19,12 +27,10 @@ const Card = ({ data }) => {
         <img className='w-full h-full object-cover rounded-lg' src={data.image} alt='headphones'/>
         <button 
           className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
-          onClick={(event) => {
-            event.stopPropagation();
-            context.increment();
-          }}
-        >
-          <PlusIcon className='h-6 w-6 text-black-500'></PlusIcon>
+          onClick={(event) => addProductToCart(event, data)}
+          >
+          <PlusIcon className='h-6 w-6 text-black-500'>
+          </PlusIcon>
         </button>
       </figure>
       <p className='flex justify-between'>
