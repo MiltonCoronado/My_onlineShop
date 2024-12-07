@@ -1,6 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { MyContext } from './Context';
 import OrderCard from './OrderCard.jsx';
+import { totalPrice } from '../utils'
 
 const CheckoutSideMenu = () => {
   const context = MyContext();
@@ -34,6 +35,12 @@ const CheckoutSideMenu = () => {
             deleteOrderCard={() => deleteOrderCard(item.id)}//para evitar el problema del provider que no se podia montar mientras se montaba otro componente debi de enviar esta funcion como algo asi tipo una render function que enrealidad solo es una funcion anonima para crear una referencia y no se ejecute. Por que? 
           />
         ))}
+      </div>
+      <div className='px-6'>
+        <p className='flex justify-between items-center'>
+          <span className='font-light'>Total:</span>
+          <span className='font-medium text-2xl'>${totalPrice(context.cartProducts)}</span>
+        </p>
       </div>
     </aside>
   )
