@@ -6,11 +6,21 @@ import { totalPrice } from '../utils'
 const CheckoutSideMenu = () => {
   const context = MyContext();
 
-  console.log('CheckoutSideMenu', context.showProduct)
-
   const deleteOrderCard = (id) => {
     const deleteProducts = context.cartProducts.filter(item => item.id !== id);
     context.setCardProducts(deleteProducts);
+  };
+
+  const handleCheckout = () => {
+    const myOrder ={
+      date: '01.01.25',
+      products: context.cartProducts,
+      totalProducts: context.cartProducts.length,
+      totalPrice: totalPrice(context.cartProducts),
+    }
+
+    context.setOrder([...context.order, myOrder]);
+    context.setCardProducts([]);
   };
 
   return (
@@ -41,6 +51,9 @@ const CheckoutSideMenu = () => {
           <span className='font-light'>Total:</span>
           <span className='font-medium text-2xl'>${totalPrice(context.cartProducts)}</span>
         </p>
+        <button
+          onClick={handleCheckout}
+        >Checkout</button>
       </div>
     </aside>
   )
