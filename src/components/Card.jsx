@@ -18,8 +18,6 @@ const Card = ({ data }) => {
     context.setCardProducts([...context.cartProducts, data])
   };
 
-  console.log('cartProducts', context.cartProducts)
-
   const renderIcon = (dataId) => {
     const renderCheckIcon = context.cartProducts.some(item => item.id === dataId)
 

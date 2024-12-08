@@ -15,8 +15,6 @@ const Home = () => {
     fetchItems();
   }, [])
 
-  console.log(products)
-
   return (
     <div>
       <p className='flex justify-center mb-8'>

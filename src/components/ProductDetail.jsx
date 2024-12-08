@@ -4,8 +4,6 @@ import { MyContext } from './Context';
 const ProductDetail = () => {
   const context = MyContext();
 
-  console.log('productDetail', context.showProduct)
-
   return (
     <aside className={`${context.ProductDetailOpen ? 'flex' : 'hidden'} top-[63px] w-[360px] h-[calc(100vh-68px)] flex-col fixed right-0 border border-black rounded-lg bg-white z-10`}>
       <div className='flex justify-between items-center p-6'>

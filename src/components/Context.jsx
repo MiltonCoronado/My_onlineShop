@@ -20,6 +20,10 @@ const ShoppingCartProvider = ({ children }) => {
   const openCheckoutSideMenu = () => setcheckoutSideMenu(true);
   const closeCheckoutSideMenu = () => setcheckoutSideMenu(false);
 
+  const [order, setOrder] = useState([]);
+
+  console.log('Order', order)
+
   return (
     <ShoppingCartContext.Provider value={{
       incrementProduct,
@@ -34,6 +38,8 @@ const ShoppingCartProvider = ({ children }) => {
       checkoutSideMenu,
       openCheckoutSideMenu,
       closeCheckoutSideMenu,
+      order,
+      setOrder,
     }}>
       {children}
     </ShoppingCartContext.Provider>
