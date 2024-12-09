@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { MyContext } from './Context';
 import OrderCard from './OrderCard.jsx';
@@ -21,6 +22,8 @@ const CheckoutSideMenu = () => {
 
     context.setOrder([...context.order, myOrder]);
     context.setCardProducts([]);
+    context.setCheckoutSideMenu(false);
+    context.setIncrementProduct(0);
   };
 
   return (
@@ -35,7 +38,7 @@ const CheckoutSideMenu = () => {
           </XMarkIcon>
         </button>
       </div>
-      <div className='px-6'>
+      <div className='px-6 flex-1'>
         {context.cartProducts.map(item => (
           <OrderCard 
             key={item.id}
@@ -46,14 +49,19 @@ const CheckoutSideMenu = () => {
           />
         ))}
       </div>
-      <div className='px-6'>
-        <p className='flex justify-between items-center'>
+      <div className='px-6 mb-6'>
+        <p className='flex justify-between items-center mb-2'>
           <span className='font-light'>Total:</span>
           <span className='font-medium text-2xl'>${totalPrice(context.cartProducts)}</span>
         </p>
-        <button
-          onClick={handleCheckout}
-        >Checkout</button>
+        <Link to='/my-orders/last'>
+          <button
+            className='bg-black py-3 text-white w-full rounded-lg'
+            onClick={handleCheckout}
+          >
+            Checkout
+          </button>
+        </Link>
       </div>
     </aside>
   )
