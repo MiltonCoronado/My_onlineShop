@@ -16,9 +16,9 @@ const ShoppingCartProvider = ({ children }) => {
 
   const [cartProducts, setCardProducts] = useState([]);
 
-  const [checkoutSideMenu, setcheckoutSideMenu] = useState(false);
-  const openCheckoutSideMenu = () => setcheckoutSideMenu(true);
-  const closeCheckoutSideMenu = () => setcheckoutSideMenu(false);
+  const [checkoutSideMenu, setCheckoutSideMenu] = useState(false);
+  const openCheckoutSideMenu = () => setCheckoutSideMenu(true);
+  const closeCheckoutSideMenu = () => setCheckoutSideMenu(false);
 
   const [order, setOrder] = useState([]);
 
@@ -28,6 +28,7 @@ const ShoppingCartProvider = ({ children }) => {
     <ShoppingCartContext.Provider value={{
       incrementProduct,
       increment,
+      setIncrementProduct,
       ProductDetailOpen,
       openSideMenu,
       closeSideMenu,
@@ -36,6 +37,7 @@ const ShoppingCartProvider = ({ children }) => {
       cartProducts,
       setCardProducts,
       checkoutSideMenu,
+      setCheckoutSideMenu,
       openCheckoutSideMenu,
       closeCheckoutSideMenu,
       order,
