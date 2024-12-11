@@ -10,8 +10,8 @@ const MyOrder = () => {
   
   if(index === 'last') index = context.order.length - 1;
   
-  console.log('index', index)
   console.log(context.order)
+  console.log('index', index)
 
   return (
     <div>
