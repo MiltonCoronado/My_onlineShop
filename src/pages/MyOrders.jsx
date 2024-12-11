@@ -11,7 +11,7 @@ const MyOrders = () => {
         MyOrders
       </h1>
       {context.order.map((item, index) => (
-        <Link key={index} to={`/my-order`}>
+        <Link key={index} to={`/my-order/${index}`}>
           <OrdersCards 
             totalProducts={item.totalProducts}
             totalPrice={item.totalPrice}
