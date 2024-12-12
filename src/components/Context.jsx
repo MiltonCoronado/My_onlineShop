@@ -1,8 +1,20 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const ShoppingCartContext = createContext();
 
 const ShoppingCartProvider = ({ children }) => {
+  const [products, setProducts] = useState([]); 
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      const response = await fetch('https://fakestoreapi.com/products');
+      const data = await response.json();
+      setProducts(data);
+    }
+
+    fetchItems();
+  }, []);
+
   const [incrementProduct, setIncrementProduct] = useState(0);
   const increment = () => {
     setIncrementProduct(incrementProduct + 1);
@@ -42,6 +54,7 @@ const ShoppingCartProvider = ({ children }) => {
       closeCheckoutSideMenu,
       order,
       setOrder,
+      products,
     }}>
       {children}
     </ShoppingCartContext.Provider>
