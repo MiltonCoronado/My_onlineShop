@@ -8,10 +8,10 @@ const MyOrder = () => {
 
   let { index } = useParams();
   
-  if(index === 'last') index = context.order.length - 1;
+  if(index === 'last') index = context.order.length - 1; //si esto ( es igual === "/:id" ) es igual var "var index = 'last'; index es isual a cero ( = ) index. arranca incremento cuando la cantidad de pedidos de ('/last' renderPath)  aunmente.
   
   console.log(context.order)
-  console.log('index', index)
+  console.log('index', {index})
 
   return (
     <div>
@@ -20,7 +20,7 @@ const MyOrder = () => {
           <ChevronLeftIcon className='h-6 w-6 text-black'>
           </ChevronLeftIcon>
         </Link>
-        <h1>MyOrder</h1> 
+        <h1>My order</h1> 
       </div>
       <div className='flex flex-col w-96'>
         {context.order?.[index]?.products.map(item => (

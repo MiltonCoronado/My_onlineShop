@@ -8,11 +8,11 @@ const OrdersCards = ({ totalPrice, totalProducts }) => {
           <span className='font-light'>01.02.25</span>
           <span className='font-light'>{totalProducts} Articles</span>
         </span>
+      </p>
       <p className='flex items-center gap-2'>
         <span className='font-medium text-2xl'>${totalPrice}</span>
         <ChevronRightIcon className='h-6 w-6 text-black cursor-pointer'>
         </ChevronRightIcon>
-      </p>
       </p>
     </div>
   )

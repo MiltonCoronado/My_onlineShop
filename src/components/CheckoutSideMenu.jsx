@@ -20,7 +20,7 @@ const CheckoutSideMenu = () => {
       totalPrice: totalPrice(context.cartProducts),
     }
 
-    context.setOrder([...context.order, myOrder]);
+    context.setOrder([...context.order, myOrder]);//aca introduzco el objeto que tipe empezando de la linea 16.
     context.setCardProducts([]);
     context.setCheckoutSideMenu(false);
     context.setIncrementProduct(0);
