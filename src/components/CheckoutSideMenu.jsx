@@ -24,6 +24,7 @@ const CheckoutSideMenu = () => {
     context.setCardProducts([]);
     context.setCheckoutSideMenu(false);
     context.setIncrementProduct(0);
+    context.setSearchByTitle(null);
   };
 
   return (
