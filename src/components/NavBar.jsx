@@ -7,13 +7,12 @@ const NavElement = ({ to, children, activeStyle }) => {
     <li>
       <NavLink
         to={to}
-        className={({ isActive }) => 
-          isActive ? activeStyle : undefined
-        }>
-          {children}
+        className={({ isActive }) => (isActive ? activeStyle : undefined)}
+      >
+        {children}
       </NavLink>
     </li>
-  )
+  );
 };
 
 const NavBar = () => {
@@ -21,82 +20,39 @@ const NavBar = () => {
   const context = MyContext();
 
   return (
-    <nav className='flex justify-between items-center fixed z-10 top-0 w-full py-3.5 px-8 text-sm font-light bg-white'>
-      <ul className='flex items-center gap-3'>
-        <div className='font-semibold text-lg'>
-            <NavElement
-              to={'/'}
-            >
-              Shopi
-            </NavElement>
+    <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-3.5 px-8 text-sm font-light bg-white">
+      <ul className="flex items-center gap-3">
+        <div className="font-semibold text-lg">
+          <NavElement to={'/'}>Shopi</NavElement>
         </div>
-        <NavElement
-          to={'/'}
-          activeStyle={activeStyle}
-        >
+        <NavElement to={'/all'} activeStyle={activeStyle}>
           All
         </NavElement>
-        <NavElement
-          to={'/clothes'}
-          activeStyle={activeStyle}
-        >
+        <NavElement to={'/clothing'} activeStyle={activeStyle}>
           Clothes
         </NavElement>
-        <NavElement
-          to={'/electronics'}
-          activeStyle={activeStyle}
-        >
+        <NavElement to={'/electronics'} activeStyle={activeStyle}>
           Electronics
         </NavElement>
-        <NavElement
-          to={'/fornitures'}
-          activeStyle={activeStyle}
-        >
-          Fornitures
-        </NavElement>
-        <NavElement 
-          to='/toys'
-          activeStyle={activeStyle}
-        >
-          toys
-        </NavElement>
-        <NavElement 
-          to='/others'
-          activeStyle={activeStyle}
-        >
-          others
-        </NavElement>
       </ul>
-      <ul className='flex items-center gap-3'>
-        <li className='text-black/60'>
-          Shop@example.com
-        </li>
-        <NavElement 
-          to='/my-orders'
-          activeStyle={activeStyle}
-        >
+      <ul className="flex items-center gap-3">
+        <li className="text-black/60">Shop@example.com</li>
+        <NavElement to="/my-orders" activeStyle={activeStyle}>
           My Orders
         </NavElement>
-        <NavElement 
-          to='/My-Account'
-          activeStyle={activeStyle}
-        >
+        <NavElement to="/My-Account" activeStyle={activeStyle}>
           My Account
         </NavElement>
-        <NavElement 
-          to='/sign-in'
-          activeStyle={activeStyle}
-        >
+        <NavElement to="/sign-in" activeStyle={activeStyle}>
           Sign In
         </NavElement>
-        <li className='flex items-center'>
-          <ShoppingCartIcon className='h-6 w-6 text-black-500'>
-          </ShoppingCartIcon>
+        <li className="flex items-center">
+          <ShoppingCartIcon className="h-6 w-6 text-black-500"></ShoppingCartIcon>
           <div>{context.incrementProduct}</div>
         </li>
       </ul>
     </nav>
-  )
+  );
 };
 
 export default NavBar;
