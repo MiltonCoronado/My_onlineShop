@@ -36,6 +36,9 @@ const NavBar = () => {
         <NavElement to={'/electronics'} activeStyle={activeStyle}>
           Electronics
         </NavElement>
+        <NavElement to={'/jewelery'} activeStyle={activeStyle}>
+          Jewelery
+        </NavElement>
       </ul>
       <ul className="flex items-center gap-3">
         <li className="text-black/60">Shop@example.com</li>
