@@ -3,85 +3,96 @@ import { createContext, useContext, useEffect, useState } from 'react';
 const ShoppingCartContext = createContext();
 
 const ShoppingCartProvider = ({ children }) => {
-  const [products, setProducts] = useState([]); 
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(null);
+
+  // Estados de UI y Carrito
+  const [incrementProduct, setIncrementProduct] = useState(0);
+  const [ProductDetailOpen, setProductDetailOpen] = useState(false);
+  const [showProduct, setShowProduct] = useState(null);
+  const [cartProducts, setCardProducts] = useState([]);
+  const [checkoutSideMenu, setCheckoutSideMenu] = useState(false);
+  const [order, setOrder] = useState([]);
+
+  // Estados de Filtrado
+  const [searchByTitle, setSearchByTitle] = useState(null);
+  const [searchByOptionAtNavBar, setSearchByOptionAtNavBar] = useState(null);
 
   useEffect(() => {
     const fetchItems = async () => {
       const response = await fetch('https://fakestoreapi.com/products');
       const data = await response.json();
       setProducts(data);
-    }
-
+    };
     fetchItems();
   }, []);
 
-  const [incrementProduct, setIncrementProduct] = useState(0);
-  const increment = () => {
-    setIncrementProduct(incrementProduct + 1);
+  const filteredByTitle = (items, title) => {
+    return items?.filter((item) =>
+      item.title.toLowerCase().includes(title.toLowerCase()),
+    );
   };
 
-  const [ProductDetailOpen, setProductDetailOpen] = useState(false);
-  const openSideMenu = () => setProductDetailOpen(true);
-  const closeSideMenu = () => setProductDetailOpen(false);
+  const filteredByOptionAtNavBar = (products, searchByOptionAtNavBar) => {
+    const option = searchByOptionAtNavBar?.toLowerCase();
+    if (!option || option === 'all') return products;
 
-  const [showProduct, setShowProduct] = useState(null);
-
-  const [cartProducts, setCardProducts] = useState([]);
-
-  const [checkoutSideMenu, setCheckoutSideMenu] = useState(false);
-  const openCheckoutSideMenu = () => setCheckoutSideMenu(true);
-  const closeCheckoutSideMenu = () => setCheckoutSideMenu(false);
-
-  const [order, setOrder] = useState([]);
-
-  console.log('Order', order)
-
-  //fitrado-----------------------------------------------
-  const [searchByTitle, setSearchByTitle] = useState(null);
-  const [filteredProducts, setFilteredProducts] = useState(null);
-
-  const filteredByTitle = (products, searchByTitle) => {
-    return products?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()));//esta es la clasica linea para filtrado, esta vez hace lo que este guardado en el estado searchByTitle
+    return products?.filter((item) =>
+      item.category.toLowerCase().includes(option),
+    );
   };
 
   useEffect(() => {
-    if(searchByTitle)  setFilteredProducts(filteredByTitle(products, searchByTitle));
+    let result = products;
 
-  }, [products, searchByTitle]);//Esto se hace en un useEffect me imagino para activar el seteo apenas se escriba o renderice el nombre o los productos. osea siempre "va a estar atento a cualquier cambio" ya que al final va a seguir recorriendo el mismo array del principo, no es una derivada de una funcion es pasarle el estado.
+    if (searchByTitle && searchByOptionAtNavBar) {
+      result = filteredByOptionAtNavBar(products, searchByOptionAtNavBar);
+      result = filteredByTitle(result, searchByTitle);
+    } else if (searchByTitle) {
+      result = filteredByTitle(products, searchByTitle);
+    } else if (searchByOptionAtNavBar) {
+      result = filteredByOptionAtNavBar(products, searchByOptionAtNavBar);
+    }
 
-  console.log('filteres', filteredProducts)
+    setFilteredProducts(result);
+  }, [products, searchByTitle, searchByOptionAtNavBar]);
+
+  const increment = () => setIncrementProduct(incrementProduct + 1);
+  const openSideMenu = () => setProductDetailOpen(true);
+  const closeSideMenu = () => setProductDetailOpen(false);
+  const openCheckoutSideMenu = () => setCheckoutSideMenu(true);
+  const closeCheckoutSideMenu = () => setCheckoutSideMenu(false);
 
   return (
-    <ShoppingCartContext.Provider value={{
-      incrementProduct,
-      increment,
-      setIncrementProduct,
-      ProductDetailOpen,
-      openSideMenu,
-      closeSideMenu,
-      showProduct,
-      setShowProduct,
-      cartProducts,
-      setCardProducts,
-      checkoutSideMenu,
-      setCheckoutSideMenu,
-      openCheckoutSideMenu,
-      closeCheckoutSideMenu,
-      order,
-      setOrder,
-      products,
-      searchByTitle,
-      setSearchByTitle,
-      filteredProducts,
-    }}>
+    <ShoppingCartContext.Provider
+      value={{
+        incrementProduct,
+        ProductDetailOpen,
+        showProduct,
+        cartProducts,
+        checkoutSideMenu,
+        order,
+        products,
+        searchByTitle,
+        searchByOptionAtNavBar,
+        filteredProducts,
+        increment,
+        setIncrementProduct,
+        openSideMenu,
+        closeSideMenu,
+        setShowProduct,
+        setCardProducts,
+        setCheckoutSideMenu,
+        openCheckoutSideMenu,
+        closeCheckoutSideMenu,
+        setOrder,
+        setSearchByTitle,
+        setSearchByOptionAtNavBar,
+      }}
+    >
       {children}
     </ShoppingCartContext.Provider>
-  )
+  );
 };
 
-const MyContext = () => {
-  const context = useContext(ShoppingCartContext);
-  return context;
-};
-
-export {ShoppingCartProvider, MyContext}
+export { ShoppingCartProvider, ShoppingCartContext };
