@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
 import { ShoppingCartIcon } from '@heroicons/react/24/solid';
-import { MyContext } from './Context.jsx';
+import { ShoppingCartContext } from './Context.jsx';
 
 const NavElement = ({ to, children, activeStyle }) => {
   return (
@@ -16,8 +17,9 @@ const NavElement = ({ to, children, activeStyle }) => {
 };
 
 const NavBar = () => {
+  const { incrementProduct } = useContext(ShoppingCartContext);
+
   const activeStyle = 'underline underline-offset-4';
-  const context = MyContext();
 
   return (
     <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-3.5 px-8 text-sm font-light bg-white">
@@ -48,7 +50,7 @@ const NavBar = () => {
         </NavElement>
         <li className="flex items-center">
           <ShoppingCartIcon className="h-6 w-6 text-black-500"></ShoppingCartIcon>
-          <div>{context.incrementProduct}</div>
+          <div>{incrementProduct}</div>
         </li>
       </ul>
     </nav>
