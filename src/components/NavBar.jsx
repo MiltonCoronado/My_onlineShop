@@ -17,7 +17,7 @@ const NavElement = ({ to, children, activeStyle }) => {
 };
 
 const NavBar = () => {
-  const { incrementProduct } = useContext(ShoppingCartContext);
+  const { cartProducts } = useContext(ShoppingCartContext);
 
   const activeStyle = 'underline underline-offset-4';
 
@@ -36,6 +36,9 @@ const NavBar = () => {
         <NavElement to={'/electronics'} activeStyle={activeStyle}>
           Electronics
         </NavElement>
+        <NavElement to={'/jewelery'} activeStyle={activeStyle}>
+          Jewelery
+        </NavElement>
       </ul>
       <ul className="flex items-center gap-3">
         <li className="text-black/60">Shop@example.com</li>
@@ -50,7 +53,7 @@ const NavBar = () => {
         </NavElement>
         <li className="flex items-center">
           <ShoppingCartIcon className="h-6 w-6 text-black-500"></ShoppingCartIcon>
-          <div>{incrementProduct}</div>
+          <div>{cartProducts.length}</div>
         </li>
       </ul>
     </nav>
