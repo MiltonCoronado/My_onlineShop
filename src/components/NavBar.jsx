@@ -3,11 +3,12 @@ import { useContext } from 'react';
 import { ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { ShoppingCartContext } from './Context.jsx';
 
-const NavElement = ({ to, children, activeStyle }) => {
+const NavElement = ({ to, children, activeStyle, onClick }) => {
   return (
     <li>
       <NavLink
         to={to}
+        onClick={onClick}
         className={({ isActive }) => (isActive ? activeStyle : undefined)}
       >
         {children}
@@ -17,7 +18,12 @@ const NavElement = ({ to, children, activeStyle }) => {
 };
 
 const NavBar = () => {
-  const { cartProducts } = useContext(ShoppingCartContext);
+  const { signOut, account, logoutUser, cartProducts } =
+    useContext(ShoppingCartContext);
+
+  // Validamos si el objeto account tiene datos adentro y el usuario inició sesión
+  const hasUserAnAccount = Object.keys(account).length > 0;
+  const isUserLogged = hasUserAnAccount && !signOut; //si "¡NO!" esta sigOut/osea deslogueado
 
   const activeStyle = 'underline underline-offset-4';
 
@@ -41,16 +47,30 @@ const NavBar = () => {
         </NavElement>
       </ul>
       <ul className="flex items-center gap-3">
-        <li className="text-black/60">Shop@example.com</li>
-        <NavElement to="/my-orders" activeStyle={activeStyle}>
-          My Orders
-        </NavElement>
-        <NavElement to="/My-Account" activeStyle={activeStyle}>
-          My Account
-        </NavElement>
-        <NavElement to="/sign-in" activeStyle={activeStyle}>
-          Sign In
-        </NavElement>
+        {isUserLogged ? (
+          <>
+            <li className="text-black/60">{account.email}</li>
+
+            {/* Tus NavElements personalizados */}
+            <NavElement to="/my-orders" activeStyle={activeStyle}>
+              My Orders
+            </NavElement>
+            <NavElement to="/my-account" activeStyle={activeStyle}>
+              My Account
+            </NavElement>
+            <NavElement
+              to="/sign-in"
+              activeStyle={activeStyle}
+              onClick={() => logoutUser()}
+            >
+              Sign out
+            </NavElement>
+          </>
+        ) : (
+          <NavElement to="/sign-in" activeStyle={activeStyle}>
+            Sign in
+          </NavElement>
+        )}
         <li className="flex items-center">
           <ShoppingCartIcon className="h-6 w-6 text-black-500"></ShoppingCartIcon>
           <div>{cartProducts.length}</div>

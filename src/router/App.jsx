@@ -7,8 +7,9 @@ import Signin from '../pages/Signin';
 import NotFound from '../pages/NotFound';
 import NavBar from '../components/NavBar';
 import Layout from '../components/Layout';
-import CheckoutSideMenu from '../components/CheckoutSideMenu.jsx';
-import { ShoppingCartProvider } from '../components/Context.jsx';
+import CheckoutSideMenu from '../components/CheckoutSideMenu';
+import ProtectedRoute from '../components/ProtectedRoutes';
+import { ShoppingCartProvider } from '../components/Context';
 
 const App = () => {
   return (
@@ -21,9 +22,30 @@ const App = () => {
             {/* :slug => para capturar rutas dinamicas*/}
             <Route path="/" element={<Home />} />
             <Route path="/:slug" element={<Home />} />
-            <Route path="/my-account" element={<MyAccount />} />
-            <Route path="/my-orders" element={<MyOrders />} />
-            <Route path="/my-order/:index" element={<MyOrder />} />
+            <Route
+              path="/my-account"
+              element={
+                <ProtectedRoute>
+                  <MyAccount />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/my-orders"
+              element={
+                <ProtectedRoute>
+                  <MyOrders />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/my-order/:index"
+              element={
+                <ProtectedRoute>
+                  <MyOrder />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/sign-in" element={<Signin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
