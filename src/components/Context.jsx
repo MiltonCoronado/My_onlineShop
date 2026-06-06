@@ -4,7 +4,7 @@ const ShoppingCartContext = createContext();
 
 const ShoppingCartProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState(null);
+  const [searchText, setSearchText] = useState('');
 
   // Estados de UI y Carrito
   const [incrementProduct, setIncrementProduct] = useState(0);
@@ -16,7 +16,6 @@ const ShoppingCartProvider = ({ children }) => {
 
   // Estados de Filtrado
   const [searchByTitle, setSearchByTitle] = useState(null);
-  const [searchByOptionAtNavBar, setSearchByOptionAtNavBar] = useState(null);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -27,35 +26,26 @@ const ShoppingCartProvider = ({ children }) => {
     fetchItems();
   }, []);
 
-  const filteredByTitle = (items, title) => {
-    return items?.filter((item) =>
-      item.title.toLowerCase().includes(title.toLowerCase()),
+  const getFilteredProducts = (slug) => {
+    const validPaths = ['clothing', 'electronics', 'jewelery'];
+    const currentCategory = validPaths.includes(slug) ? slug : null;
+
+    return (
+      products?.filter((product) => {
+        const matchesCategory = currentCategory
+          ? product.category
+              .toLowerCase()
+              .includes(currentCategory.toLowerCase())
+          : true;
+
+        const matchesTitle = searchText
+          ? product.title.toLowerCase().includes(searchText.toLowerCase())
+          : true;
+
+        return matchesCategory && matchesTitle;
+      }) || []
     );
   };
-
-  const filteredByOptionAtNavBar = (products, searchByOptionAtNavBar) => {
-    const option = searchByOptionAtNavBar?.toLowerCase();
-    if (!option || option === 'all') return products;
-
-    return products?.filter((item) =>
-      item.category.toLowerCase().includes(option),
-    );
-  };
-
-  useEffect(() => {
-    let result = products;
-
-    if (searchByTitle && searchByOptionAtNavBar) {
-      result = filteredByOptionAtNavBar(products, searchByOptionAtNavBar);
-      result = filteredByTitle(result, searchByTitle);
-    } else if (searchByTitle) {
-      result = filteredByTitle(products, searchByTitle);
-    } else if (searchByOptionAtNavBar) {
-      result = filteredByOptionAtNavBar(products, searchByOptionAtNavBar);
-    }
-
-    setFilteredProducts(result);
-  }, [products, searchByTitle, searchByOptionAtNavBar]);
 
   const increment = () => setIncrementProduct(incrementProduct + 1);
   const openSideMenu = () => setProductDetailOpen(true);
@@ -67,6 +57,7 @@ const ShoppingCartProvider = ({ children }) => {
     <ShoppingCartContext.Provider
       value={{
         incrementProduct,
+        searchText,
         ProductDetailOpen,
         showProduct,
         cartProducts,
@@ -74,9 +65,8 @@ const ShoppingCartProvider = ({ children }) => {
         order,
         products,
         searchByTitle,
-        searchByOptionAtNavBar,
-        filteredProducts,
         increment,
+        setSearchText,
         setIncrementProduct,
         openSideMenu,
         closeSideMenu,
@@ -86,8 +76,8 @@ const ShoppingCartProvider = ({ children }) => {
         openCheckoutSideMenu,
         closeCheckoutSideMenu,
         setOrder,
+        getFilteredProducts,
         setSearchByTitle,
-        setSearchByOptionAtNavBar,
       }}
     >
       {children}
