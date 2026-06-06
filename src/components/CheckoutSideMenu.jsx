@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCartContext } from './Context.jsx';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { totalPrice } from '../utils';
-import OrderCard from './OrderCard.jsx';
+import { ShoppingCartContext } from './Context';
+import OrderCard from './OrderCard';
 
 const CheckoutSideMenu = () => {
   const {
@@ -31,7 +31,7 @@ const CheckoutSideMenu = () => {
       totalPrice: totalPrice(cartProducts),
     };
 
-    setOrder([...order, myOrder]); //aca introduzco el objeto que tipe empezando de la linea 16.
+    setOrder([...order, myOrder]); //aca introduzco el objeto que tipe empezando de la linea 27.
     setCardProducts([]);
     setCheckoutSideMenu(false);
     setIncrementProduct(0);
