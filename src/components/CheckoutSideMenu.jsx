@@ -7,14 +7,13 @@ import OrderCard from './OrderCard';
 
 const CheckoutSideMenu = () => {
   const {
-    order,
-    setOrder,
+    closeCheckoutSideMenu,
+    checkoutSideMenu,
     cartProducts,
     setCardProducts,
-    checkoutSideMenu,
+    order,
+    setOrder,
     setCheckoutSideMenu,
-    closeCheckoutSideMenu,
-    setIncrementProduct,
     setSearchByTitle,
   } = useContext(ShoppingCartContext);
 
@@ -34,7 +33,6 @@ const CheckoutSideMenu = () => {
     setOrder([...order, myOrder]); //aca introduzco el objeto que tipe empezando de la linea 27.
     setCardProducts([]);
     setCheckoutSideMenu(false);
-    setIncrementProduct(0);
     setSearchByTitle(null);
   };
 
@@ -57,7 +55,7 @@ const CheckoutSideMenu = () => {
             key={item.id}
             title={item.title}
             image={item.image}
-            price={item.price}
+            price={item.price.toFixed(2)}
             deleteOrderCard={() => deleteOrderCard(item.id)} //para evitar el problema del provider que no se podia montar mientras se montaba otro componente debi de enviar esta funcion como algo asi tipo una render function que enrealidad solo es una funcion anonima para crear una referencia y no se ejecute. Por que?
           />
         ))}
