@@ -18,10 +18,9 @@ const NavElement = ({ to, children, activeStyle, onClick }) => {
 };
 
 const NavBar = () => {
-  const { signOut, account, logoutUser, cartProducts } =
+  const { signOut, account, logoutUser, cartProducts, setIsSignUp } =
     useContext(ShoppingCartContext);
 
-  // Validamos si el objeto account tiene datos adentro y el usuario inició sesión
   const hasUserAnAccount = Object.keys(account).length > 0;
   const isUserLogged = hasUserAnAccount && !signOut; //si "¡NO!" esta sigOut/osea deslogueado
 
@@ -50,8 +49,6 @@ const NavBar = () => {
         {isUserLogged ? (
           <>
             <li className="text-black/60">{account.email}</li>
-
-            {/* Tus NavElements personalizados */}
             <NavElement to="/my-orders" activeStyle={activeStyle}>
               My Orders
             </NavElement>
@@ -67,7 +64,11 @@ const NavBar = () => {
             </NavElement>
           </>
         ) : (
-          <NavElement to="/sign-in" activeStyle={activeStyle}>
+          <NavElement
+            to="/sign-in"
+            activeStyle={activeStyle}
+            onClick={() => setIsSignUp(false)}
+          >
             Sign in
           </NavElement>
         )}
