@@ -3,13 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { ShoppingCartContext } from '../components/Context';
 
 const Signin = () => {
-  const { account, loginUser, signUpUser } = useContext(ShoppingCartContext);
+  const { account, loginUser, signUpUser, isSignUp, setIsSignUp } =
+    useContext(ShoppingCartContext);
+
   const navigate = useNavigate();
 
-  // Estado local para alternar entre vista Login (false) y vista SignUp (true)
-  const [isSignUp, setIsSignUp] = useState(false);
-
-  // Estados para los inputs del registro
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -74,13 +72,11 @@ const Signin = () => {
     );
   }
 
-  // --- VISTA DE LOGIN MOCKEADO (Imagen 1 e Imagen 3) ---
   return (
     <div className="flex flex-col items-center justify-center mt-20">
       <h1 className="font-medium text-xl mb-6">Welcome</h1>
 
       {hasAccount ? (
-        // Si hay una cuenta guardada, emula los datos fijos
         <div className="flex flex-col w-80 text-center gap-2">
           <p className="text-sm font-light text-left">
             <span className="font-normal">Email:</span> {account.email}
@@ -99,7 +95,6 @@ const Signin = () => {
           </span>
         </div>
       ) : (
-        // Si el LocalStorage está totalmente vacío
         <div className="flex flex-col w-80 gap-4 text-center">
           <p className="text-sm font-light text-gray-500">
             No account found. Please sign up.
@@ -107,7 +102,6 @@ const Signin = () => {
         </div>
       )}
 
-      {/* Botón para alternar a la vista de creación de cuenta */}
       <button
         onClick={() => setIsSignUp(true)}
         className="border border-black text-black w-80 py-3 rounded-lg mt-6 font-light"
