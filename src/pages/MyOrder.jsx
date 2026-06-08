@@ -27,7 +27,7 @@ const MyOrder = () => {
             key={item.id}
             title={item.title}
             image={item.image}
-            price={item.price}
+            price={item.price.toFixed(2)}
           />
         ))}
       </div>
