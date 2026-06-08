@@ -4,7 +4,6 @@ import { ShoppingCartContext } from './Context';
 
 const Card = ({ data }) => {
   const {
-    increment,
     cartProducts,
     openSideMenu,
     closeSideMenu,
@@ -23,7 +22,6 @@ const Card = ({ data }) => {
   const addProductToCart = (event, data) => {
     event.stopPropagation();
     openCheckoutSideMenu();
-    increment();
     closeSideMenu();
     setCardProducts([...cartProducts, data]);
   };
